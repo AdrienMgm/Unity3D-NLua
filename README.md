@@ -43,3 +43,7 @@ See the SpawnSphere example.
 **How do I run C# coroutines?**
 
 See [this comment](https://github.com/NLua/NLua/issues/110#issuecomment-59874806) for details, essentially though you either have to call lua functions indriectily, or roll your own coroutine manager (not hugely difficult). Direct support for coroutines may be included in future releases. 
+
+** Why am I getting errors when running Lua scripts on iOS but not any other platform?
+
+iOS IL2CPP builds automatically strips assemblies of unused code. Unity may strip code you use only in your Lua script but not your C# code. You can prevent stripping by using the class at least once in your C# code or adding assemblies to a link.xml file in Unity. See [this page] (http://docs.unity3d.com/Manual/iphone-playerSizeOptimization.html) for more details.
