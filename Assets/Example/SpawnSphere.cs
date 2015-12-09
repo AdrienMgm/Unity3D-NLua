@@ -26,6 +26,9 @@ end
 		env = new Lua();
 		env.LoadCLRPackage();
 
+        //Using transform here to prevent it from being stripped on iOS
+        transform.position = Vector3.zero;
+
 		env["this"] = this;
 		env["transform"] = transform;
 		env["sphere"] = sphere; // Give the script access to the prefab.

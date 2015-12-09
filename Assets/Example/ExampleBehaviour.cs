@@ -41,8 +41,29 @@ function OnGUI()
 	GUILayout.BeginArea(Rect(10,10,(Screen.width / 2) - 20,Screen.height - 20))
 
 	-- Adding '{ }' to the end of GUI functions satisfies their 'params' argument.
-	GUILayout.Label('[W/S] Speed: ' .. Speed) 
-	GUILayout.Label('[A/D] Rot Angle: ' .. Angle:ToString())
+    GUILayout.BeginVertical()
+    GUILayout.BeginHorizontal()
+    if GUILayout.Button('<--', { }) then
+        Speed = Speed - 1
+    end
+    GUILayout.Label('[W/S] Speed: ' .. Speed) 
+    if GUILayout.Button('-->', { }) then
+        Speed = Speed + 1
+    end
+    GUILayout.EndHorizontal()
+    GUILayout.EndVertical()
+
+    GUILayout.BeginVertical()
+    GUILayout.BeginHorizontal()
+    if GUILayout.Button('<--', { }) then
+        Angle.z = Angle.z - 1
+    end
+    GUILayout.Label('[A/D] Rot Angle: ' .. Angle:ToString())
+    if GUILayout.Button('-->', { }) then
+        Angle.z = Angle.z + 1
+    end
+    GUILayout.EndHorizontal()
+    GUILayout.EndVertical()
 
 	GUILayout.EndArea()
 
@@ -76,11 +97,13 @@ end
 	void Awake() {
 		env = new Lua();
 		env.LoadCLRPackage();
+
+        //Using transform here to prevent it from being stripped on iOS
+        transform.RotateAround(Vector3.zero, 0.0f);
 		
 		env["this"] = this; // Give the script access to the gameobject.
 		env["transform"] = transform;
 		
-		//System.Object[] result = new System.Object[0];
 		try {
 			//result = env.DoString(source);
 			env.DoString(source);
