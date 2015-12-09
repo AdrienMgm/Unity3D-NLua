@@ -334,8 +334,8 @@ end
 			}
 		}
 
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		static int PanicCallback (LuaState luaState)
 		{
@@ -964,9 +964,9 @@ end
 		/// </summary>
 		/// <param name = "luaState">lua state</param>
 		/// <param name = "luaDebug">Pointer to LuaDebug (lua_debug) structure</param>
-		/// 
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaHook))]
+        /// 
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaHook))]
 #endif
 #if USE_KOPILUA
 		static void DebugHookCallback (LuaState luaState, LuaDebug debug)

@@ -8,15 +8,15 @@ namespace KeraLua
 {
 
 	static class NativeMethods
-	{
-	
-#if MONOTOUCH
+    {
+
+#if MONOTOUCH || UNITY_IOS
 		const string LIBNAME = "__Internal";
 #else
 #if DEBUGLUA
 		const string LIBNAME = "lua52d";
 #else
-		const string LIBNAME = "lua52";
+        const string LIBNAME = "lua52";
 #endif
 
 #if USE_DYNAMIC_DLL_REGISTER

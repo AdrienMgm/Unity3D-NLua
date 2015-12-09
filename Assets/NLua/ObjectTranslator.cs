@@ -258,12 +258,12 @@ namespace NLua
 			LuaLib.LuaError (luaState);
 		}
 
-		/*
-		 * Implementation of load_assembly. Throws an error
-		 * if the assembly is not found.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * Implementation of load_assembly. Throws an error
+         * if the assembly is not found.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int LoadAssembly (LuaState luaState)
 		{
@@ -345,12 +345,12 @@ namespace NLua
 			return type.GetExtensionMethod (name, assemblies);
 		}
 
-		/*
-		 * Implementation of import_type. Returns nil if the
-		 * type is not found.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * Implementation of import_type. Returns nil if the
+         * type is not found.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int ImportType (LuaState luaState)
 		{
@@ -371,13 +371,13 @@ namespace NLua
 			return 1;
 		}
 
-		/*
-		 * Implementation of make_object. Registers a table (first
-		 * argument in the stack) as an object subclassing the
-		 * type passed as second argument in the stack.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * Implementation of make_object. Registers a table (first
+         * argument in the stack) as an object subclassing the
+         * type passed as second argument in the stack.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int RegisterTable (LuaState luaState)
 		{
@@ -423,12 +423,12 @@ namespace NLua
 			return 0;
 		}
 
-		/*
-		 * Implementation of free_object. Clears the metatable and the
-		 * base field, freeing the created object for garbage-collection
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * Implementation of free_object. Clears the metatable and the
+         * base field, freeing the created object for garbage-collection
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int UnregisterTable (LuaState luaState)
 		{
@@ -467,12 +467,12 @@ namespace NLua
 			return 0;
 		}
 
-		/*
-		 * Implementation of get_method_bysig. Returns nil
-		 * if no matching method is not found.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * Implementation of get_method_bysig. Returns nil
+         * if no matching method is not found.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int GetMethodSignature (LuaState luaState)
 		{
@@ -519,12 +519,12 @@ namespace NLua
 			return 1;
 		}
 
-		/*
-		 * Implementation of get_constructor_bysig. Returns nil
-		 * if no matching constructor is found.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * Implementation of get_constructor_bysig. Returns nil
+         * if no matching constructor is found.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int GetConstructorSignature (LuaState luaState)
 		{
@@ -1010,8 +1010,8 @@ namespace NLua
 			return 2;
 		}
 
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int CType (LuaState luaState)
 		{
@@ -1029,8 +1029,8 @@ namespace NLua
 			return 1;
 		}
 
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int EnumFromInt (LuaState luaState)
 		{

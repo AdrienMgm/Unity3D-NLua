@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if USE_DYNAMIC_DLL_REGISTER
+using System;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -97,3 +98,4 @@ namespace KeraLua
 		static extern bool SetDllDirectory (string lpPathName);
 	}
 }
+#endif

@@ -156,13 +156,27 @@ namespace NLua.Extensions
 				}
 			}
 
-			var query = from extensionType in types
-						where extensionType.IsSealed() && !extensionType.IsGenericType() && !extensionType.IsNested
-						from method in extensionType.GetMethods (BindingFlags.Static | BindingFlags.Public)
-						where method.IsDefined (typeof (ExtensionAttribute), false)
-						where method.GetParameters () [0].ParameterType == type
-						select method;
-			return query.ToArray<MethodInfo> ();
+            List<MethodInfo> extensionMethods = new List<MethodInfo>();
+            for (int i = 0; i < types.Count; i++)
+            {
+                if (types[i].IsSealed() && types[i].IsGenericType() == false && types[i].IsNested == false)
+                {
+                    MethodInfo[] typeMethods = types[i].GetMethods(BindingFlags.Static | BindingFlags.Public);
+                    for (int j = 0; j < typeMethods.Length; j++)
+                    {
+                        if (typeMethods[j].IsDefined(typeof(ExtensionAttribute), false) == true)
+                        {
+                            Type paramType = typeMethods[j].GetParameters()[0].ParameterType;
+                            if (paramType == type || type.IsSubclassOf(paramType) == true)
+                            {
+                                extensionMethods.Add(typeMethods[j]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return extensionMethods.ToArray();
 		}
 
 		/// <summary>
@@ -382,6 +396,11 @@ namespace NLua.Extensions
 		{
 			return t.GetTypeInfo ().ImplementedInterfaces.Any (i => i.Name == name);
 		}
+
+        public static bool IsSubclassOf(this Type type, Type baseType)
+        {
+            return type.GetTypeInfo().IsAssignableFrom(baseType.GetTypeInfo());
+        }
 
 #endif
 	}

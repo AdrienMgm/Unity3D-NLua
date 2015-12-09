@@ -126,11 +126,11 @@ namespace NLua
 			LessThanOrEqualFunction = new LuaNativeFunction (MetaFunctions.LessThanOrEqualLua);
 		}
 
-		/*
-		 * __call metafunction of CLR delegates, retrieves and calls the delegate.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * __call metafunction of CLR delegates, retrieves and calls the delegate.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int RunFunctionDelegate (LuaState luaState)
 		{
@@ -145,11 +145,11 @@ namespace NLua
 			return func (luaState);
 		}
 
-		/*
-		 * __gc metafunction of CLR objects.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * __gc metafunction of CLR objects.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int CollectObject (LuaState luaState)
 		{
@@ -167,11 +167,11 @@ namespace NLua
 			return 0;
 		}
 
-		/*
-		 * __tostring metafunction of CLR objects.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * __tostring metafunction of CLR objects.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int ToStringLua (LuaState luaState)
 		{
@@ -192,23 +192,23 @@ namespace NLua
 		}
 
 
-/*
- * __add metafunction of CLR objects.
- */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * __add metafunction of CLR objects.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		static int AddLua (LuaState luaState)
 		{
 			var translator = ObjectTranslatorPool.Instance.Find (luaState);
 			return MatchOperator (luaState, "op_Addition", translator);
 		}
-	
-		/*
-		* __sub metafunction of CLR objects.
-		*/
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+
+        /*
+        * __sub metafunction of CLR objects.
+        */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		static int SubtractLua (LuaState luaState)
 		{
@@ -216,23 +216,23 @@ namespace NLua
 			return MatchOperator (luaState, "op_Subtraction", translator);
 		}
 
-		/*
-		* __mul metafunction of CLR objects.
-		*/
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+        * __mul metafunction of CLR objects.
+        */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		static int MultiplyLua (LuaState luaState)
 		{
 			var translator = ObjectTranslatorPool.Instance.Find (luaState);
 			return MatchOperator (luaState, "op_Multiply", translator);
 		}
-		
-		/*
-		* __div metafunction of CLR objects.
-		*/
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+
+        /*
+        * __div metafunction of CLR objects.
+        */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		static int DivideLua (LuaState luaState)
 		{
@@ -240,23 +240,23 @@ namespace NLua
 			return MatchOperator (luaState, "op_Division", translator);
 		}
 
-		/*
-		* __mod metafunction of CLR objects.
-		*/
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+        * __mod metafunction of CLR objects.
+        */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		static int ModLua (LuaState luaState)
 		{
 			var translator = ObjectTranslatorPool.Instance.Find (luaState);
 			return MatchOperator (luaState, "op_Modulus", translator);
 		}
-	
-		/*
-		* __unm metafunction of CLR objects.
-		*/
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+
+        /*
+        * __unm metafunction of CLR objects.
+        */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		static int UnaryNegationLua (LuaState luaState)
 		{
@@ -288,11 +288,11 @@ namespace NLua
 		}
 
 
-		/*
-		* __eq metafunction of CLR objects.
-		*/
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+        * __eq metafunction of CLR objects.
+        */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		static int EqualLua (LuaState luaState)
 		{
@@ -300,23 +300,23 @@ namespace NLua
 			return MatchOperator (luaState, "op_Equality", translator);
 		}
 
-		/*
-		* __lt metafunction of CLR objects.
-		*/
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+        * __lt metafunction of CLR objects.
+        */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		static int LessThanLua (LuaState luaState)
 		{
 			var translator = ObjectTranslatorPool.Instance.Find (luaState);
 			return MatchOperator (luaState, "op_LessThan", translator);
 		}
-		
-		/*
-		 * __le metafunction of CLR objects.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+
+        /*
+         * __le metafunction of CLR objects.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		static int LessThanOrEqualLua (LuaState luaState)
 		{
@@ -361,15 +361,15 @@ namespace NLua
 			}
 		}
 
-		/*
-		 * Called by the __index metafunction of CLR objects in case the
-		 * method is not cached or it is a field/property/event.
-		 * Receives the object and the member name as arguments and returns
-		 * either the value of the member or a delegate to call it.
-		 * If the member does not exist returns nil.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * Called by the __index metafunction of CLR objects in case the
+         * method is not cached or it is a field/property/event.
+         * Receives the object and the member name as arguments and returns
+         * either the value of the member or a delegate to call it.
+         * If the member does not exist returns nil.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int GetMethod (LuaState luaState)
 		{
@@ -473,12 +473,12 @@ namespace NLua
 			return 2;
 		}
 
-		/*
-		 * __index metafunction of base classes (the base field of Lua tables).
-		 * Adds a prefix to the method name to call the base version of the method.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * __index metafunction of base classes (the base field of Lua tables).
+         * Adds a prefix to the method name to call the base version of the method.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int GetBaseMethod (LuaState luaState)
 		{
@@ -762,13 +762,13 @@ namespace NLua
 			members [memberName] = member;
 		}
 
-		/*
-		 * __newindex metafunction of CLR objects. Receives the object,
-		 * the member name and the value to be stored as arguments. Throws
-		 * and error if the assignment is invalid.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * __newindex metafunction of CLR objects. Receives the object,
+         * the member name and the value to be stored as arguments. Throws
+         * and error if the assignment is invalid.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int SetFieldOrProperty (LuaState luaState)
 		{
@@ -946,11 +946,11 @@ namespace NLua
 			translator.ThrowError (luaState, e);
 		}
 
-		/*
-		 * __index metafunction of type references, works on static members.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * __index metafunction of type references, works on static members.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int GetClassMethod (LuaState luaState)
 		{
@@ -987,11 +987,11 @@ namespace NLua
 			}
 		}
 
-		/*
-		 * __newindex function of type references, works on static members.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * __newindex function of type references, works on static members.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int SetClassFieldOrProperty (LuaState luaState)
 		{
@@ -1014,12 +1014,12 @@ namespace NLua
 			return SetMember (luaState, target, null, BindingFlags.Static);
 		}
 
-		/*
-		 * __call metafunction of Delegates. 
-		 */
-		#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
-		#endif
+        /*
+         * __call metafunction of Delegates. 
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
+#endif
 		static int CallDelegate (LuaState luaState)
 		{
 			var translator = ObjectTranslatorPool.Instance.Find (luaState);
@@ -1065,14 +1065,14 @@ namespace NLua
 			return 1;
 		}
 
-		/*
-		 * __call metafunction of type references. Searches for and calls
-		 * a constructor for the type. Returns nil if the constructor is not
-		 * found or if the arguments are invalid. Throws an error if the constructor
-		 * generates an exception.
-		 */
-#if MONOTOUCH
-		[MonoPInvokeCallback (typeof (LuaNativeFunction))]
+        /*
+         * __call metafunction of type references. Searches for and calls
+         * a constructor for the type. Returns nil if the constructor is not
+         * found or if the arguments are invalid. Throws an error if the constructor
+         * generates an exception.
+         */
+#if MONOTOUCH || UNITY_3D
+        [AOT.MonoPInvokeCallback (typeof (LuaNativeFunction))]
 #endif
 		private static int CallConstructor (LuaState luaState)
 		{
