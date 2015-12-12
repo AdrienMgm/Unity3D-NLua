@@ -31,7 +31,7 @@ using System.Reflection;
 using NLua.Extensions;
 
 
-#if !MONOTOUCH
+#if !MONOTOUCH && !UNITY_3D
 using System.Reflection.Emit;
 #endif
 using System.Collections;
@@ -55,7 +55,7 @@ namespace NLua
 		private static readonly CodeGeneration instance = new CodeGeneration ();
 		private AssemblyName assemblyName;
 
-#if !MONOTOUCH && !SILVERLIGHT && !NETFX_CORE
+#if !MONOTOUCH && !SILVERLIGHT && !NETFX_CORE && !UNITY_3D
 		private Dictionary<Type, Type> eventHandlerCollection = new Dictionary<Type, Type> ();
 		private Type eventHandlerParent = typeof(LuaEventHandler);
 		private Type delegateParent = typeof(LuaDelegate);
@@ -65,7 +65,7 @@ namespace NLua
 		private int luaClassNumber = 1;
 #endif
 
-		static CodeGeneration ()
+        static CodeGeneration ()
 		{
 		}
 
@@ -74,12 +74,12 @@ namespace NLua
 			// Create an assembly name
 			assemblyName = new AssemblyName ();
 			assemblyName.Name = "NLua_generatedcode";
-			// Create a new assembly with one module.
-#if !MONOTOUCH && !SILVERLIGHT && !NETFX_CORE
+            // Create a new assembly with one module.
+#if !MONOTOUCH && !SILVERLIGHT && !NETFX_CORE && !UNITY_3D
 			newAssembly = Thread.GetDomain ().DefineDynamicAssembly (assemblyName, AssemblyBuilderAccess.Run);
 			newModule = newAssembly.DefineDynamicModule ("NLua_generatedcode");
 #endif
-		}
+        }
 
 		/*
 		 * Singleton instance of the class
@@ -99,6 +99,8 @@ namespace NLua
 			throw new NotImplementedException(" Emit not available on Silverlight ");
 #elif NETFX_CORE
 			throw new NotImplementedException(" Emit not available on Windows Store ");
+#elif UNITY_3D
+			throw new NotImplementedException (" Emit not available on Unity iOS. Disabled for all platforms. ");
 #else
 			string typeName;
 			lock (this) {
@@ -143,6 +145,8 @@ namespace NLua
 			throw new NotImplementedException("GenerateDelegate is not available on Silverlight, please register your LuaDelegate type with Lua.RegisterLuaDelegateType( yourDelegate, theLuaDelegateHandler) ");
 #elif NETFX_CORE
 			throw new NotImplementedException("GenerateDelegate is not available on Windows Store, please register your LuaDelegate type with Lua.RegisterLuaDelegateType( yourDelegate, theLuaDelegateHandler) ");
+#elif UNITY_3D
+            throw new NotImplementedException("GenerateDelegate is not available on Unity, please register your LuaDelegate type with Lua.RegisterLuaDelegateType( yourDelegate, theLuaDelegateHandler) ");
 #else
 			string typeName;
 			lock (this) {
@@ -326,6 +330,8 @@ namespace NLua
 			throw new NotImplementedException (" Emit not available on Silverlight ");
 #elif NETFX_CORE
 			throw new NotImplementedException (" Emit not available on Windows Store ");
+#elif UNITY_3D
+            throw new NotImplementedException(" Emit not available on Unity ");
 #else
 			string typeName;
 			lock (this) {
@@ -396,7 +402,7 @@ namespace NLua
 			generator.Emit (OpCodes.Ret);
 			newType = myType.CreateType (); // Creates the type
 #endif
-		}
+        }
 
 		void GetReturnTypesFromMethod (MethodInfo method, out Type[] returnTypes)
 		{
@@ -430,7 +436,7 @@ namespace NLua
 			returnTypes = returnTypesList.ToArray ();
 		}
 
-#if !MONOTOUCH && !SILVERLIGHT && !NETFX_CORE
+#if !MONOTOUCH && !SILVERLIGHT && !NETFX_CORE && !UNITY_3D
 
 		/*
 		 * Generates an overriden implementation of method inside myType that delegates
@@ -659,6 +665,8 @@ namespace NLua
 			throw new NotImplementedException (" Emit not available on Silverlight ");
 #elif NETFX_CORE
 			throw new NotImplementedException (" Emit not available on Windows Store ");
+#elif UNITY_3D
+            throw new NotImplementedException(" Emit not available on Unity ");
 #else
 			Type eventConsumerType;
 
@@ -673,7 +681,7 @@ namespace NLua
 			luaEventHandler.handler = eventHandler;
 			return luaEventHandler;
 #endif
-		}
+        }
 
 		public void RegisterLuaDelegateType (Type delegateType, Type luaDelegateType)
 		{

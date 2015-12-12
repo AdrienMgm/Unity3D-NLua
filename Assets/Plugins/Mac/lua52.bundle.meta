@@ -70,7 +70,7 @@ PluginImporter:
         PlaceholderPath: 
         SDK: AnySDK
     iOS:
-      enabled: 0
+      enabled: 1
       settings:
         CompileFlags: 
         FrameworkDependencies: 

@@ -427,9 +427,11 @@ namespace NLua
 				}
 			} else {
 
+#if !UNITY_IOS
 				if (!string.IsNullOrEmpty (methodName) && IsExtensionMethodPresent (objType, methodName)) {
 					return GetExtensionMethod (luaState, objType, obj, methodName);
 				}
+#endif
 				// Try to use get_Item to index into this .net object
 				var methods = objType.GetMethods ();
 
