@@ -1,0 +1,5 @@
+<linker>
+	<assembly fullname="NLua" preserve="all"/>
+    <assembly fullname="UnityEngine" preserve="all"/>
+    <assembly fullname="Assembly-CSharp" preserve="all"/>
+</linker>
