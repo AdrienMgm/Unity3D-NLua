@@ -1,9 +1,5 @@
 <linker>
-    <assembly fullname="UnityEngine">
-        <namespace fullname="UnityEngine" preserve="all"/>
-    </assembly>
-    
-    <assembly fullname="Assembly-CSharp">
-        <namespace fullname="NLua" preserve="all"/>
-    </assembly>	
+	<assembly fullname="NLua" preserve="all"/>
+    <assembly fullname="UnityEngine" preserve="all"/>
+    <assembly fullname="Assembly-CSharp" preserve="all"/>
 </linker>
